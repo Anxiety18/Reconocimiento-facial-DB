@@ -29,6 +29,18 @@
         </form>
       
     </nav>
+
+    <% if(navbar==true) {%>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal body -->
+          <div class="modal-body">
+            No se ha podido identificar el ultimo rostro agregado.
+          </div>
+        </div>
+      </div>
+    <% } %>
+    
     
     <div class="videoStream">
       <video id="videoInput" controls class="videoS" controls width="520p" height="300" ></video>
@@ -42,32 +54,6 @@
       </form>
           
     </div>
-
-    <!--
-    <div class="container" id="container">
-        
-        <div class="target">
-            <p class="target_p" id="act">Reconocimiento Facial</p>
-            <div class="videoStream">
-                
-                <video id="videoInput" controls class="videoS" width="520p" height="300"></video>
-            </div>
-            <div class="btns">
-                <form action="/save_succesfull" method="POST">
-                    <button type="submit" class="btn btn-primary btn_iniciar" name="Iniciar" >Iniciar</button>  
-               
-                    <button type="submit" class="btn btn-primary btn_finalizar" name="Finalizar" >Finalizar</button>  
-                
-                </form>
-                    
-               
-            </div>
-            <img src="#" alt="" id="imagen">
-        </div>
-    </div>
-    -->
-
-    
     
 </body>
 </html>

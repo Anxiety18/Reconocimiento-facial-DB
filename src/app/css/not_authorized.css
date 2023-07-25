@@ -70,6 +70,18 @@ button{
     margin: 1rem;
     cursor: pointer;
 }
+@media screen and (max-width: 500px) {
+   
+    .target_p-authorized{
+        color: white;
+        font-size: 1rem;
+    }
+    .target-authorized{
+        width: 90%;
+    }
+    
+
+  }
 
 @media screen and (max-width: 500px) {
    

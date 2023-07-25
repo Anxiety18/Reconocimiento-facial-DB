@@ -109,6 +109,15 @@ img{
     width: 100%;
 }
 
+.modal-dialog{
+    background-color: #E51E3D;
+    color: white;
+}
+
+.modal-body{
+    margin-left: 1rem;
+}
+
 @media screen and (max-width: 500px) {
    
     .videoStream{

@@ -132,14 +132,28 @@ function loadLabeledImages(labels) {
         labels.map(async (label)=>{
             const descriptions = []
             //Recorre las imagenes de los rostros
-            for(let i=1; i<=2; i++) {
+            try {
+                for(let i=1; i<=2; i++) {
 
-                const img = await faceapi.fetchImage(`../labeled_images/${label}/${i}.jpg`)
-                const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
-                descriptions.push(detections.descriptor)
+                    const img = await faceapi.fetchImage(`../labeled_images/${label}/${i}.jpg`)
+                    const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
+                    descriptions.push(detections.descriptor)
+                }
+                fetch("/error",{
+                    method:"POST",
+                    body:JSON.stringify({navbar:false}),
+                    headers:{"Content-Type":"application/json"}
+                })
+                return new faceapi.LabeledFaceDescriptors(label, descriptions)
+            } catch (error) {
+                fetch("/error",{
+                    method:"POST",
+                    body:JSON.stringify({navbar:true}),
+                    headers:{"Content-Type":"application/json"}
+                })
+                location.reload();
             }
             
-            return new faceapi.LabeledFaceDescriptors(label, descriptions)
         })
     )
 }

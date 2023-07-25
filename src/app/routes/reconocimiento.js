@@ -8,6 +8,7 @@ var name_user = null
 var optionDB = null
 var business = null
 var acces = false
+var error_navbar = false
 
 //Se exporta el modulo
 module.exports = app => {
@@ -31,7 +32,9 @@ module.exports = app => {
                     console.log(ip)
                     res.render('not _authorized')
                 }
-                else res.render('index')
+                else res.render('index',{
+                    navbar:error_navbar
+                })
                
                
             }
@@ -93,6 +96,12 @@ module.exports = app => {
         acces = false
         res.redirect("/")
     })
+
+    app.post('/error',(req,res) =>{
+        error_navbar = req.body.navbar
+        res.redirect("/")
+    })
+
     app.post('/add_user',(req,res) =>{
         res.render("add_user")
     })
@@ -111,8 +120,7 @@ module.exports = app => {
         
     })
 
-  
-    app.post('/admin',(req,res) =>{
+    app.get('/admin',(req,res) =>{
         
         conection.query(`SELECT id,Nombre,Entrada,Salida,image1,image2 from wide`,function(error,result){
             if(error){
@@ -127,6 +135,21 @@ module.exports = app => {
        
        
     })
+
+  
+    app.post('/admin',(req,res) =>{    
+        conection.query(`SELECT id,Nombre,Entrada,Salida,image1,image2 from wide`,function(error,result){
+            if(error){
+                throw error
+            }else{
+                res.render("crud",{
+                    users:result,
+                    msgbad:false
+                })
+            }
+        })
+    })
+
     app.post('/panel-control',(req,res) =>{
         
         conection.query(`SELECT id,Nombre,Entrada,Salida,image1,image2 from wide`,function(error,result){
@@ -157,12 +180,10 @@ module.exports = app => {
                 throw err
             }else{}
         })
-        
-        res.redirect("/")
+        res.redirect("/admin")
     })
+
     app.post('/delete',(req,res) =>{
-       
-        
         let id = req.body.btn_delete
         
         conection.query(`DELETE FROM wide WHERE id='${id}'`,function(error,result){
